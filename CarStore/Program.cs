@@ -1,4 +1,10 @@
+using CarStore.Business;
+using CarStore.Business.Interface;
 using CarStore.Context;
+using CarStore.DataAccess;
+using CarStore.DataAccess.Interface;
+using CarStore.DataAccess.Interface.Repository;
+using CarStore.DataAccess.Repository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,8 +12,15 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddDbContext<CarStoreDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<CarStoreContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+builder.Services.AddScoped<ICarTypeRepository, CarTypeRepository>();
+builder.Services.AddScoped<IFuelTypeRepository, FuelTypeRepository>();
+builder.Services.AddScoped<ICarRepository, CarRepository>();
+
+builder.Services.AddScoped<ICarStoreUnitOfWork, CarStoreUnitOfWork>();
+
+builder.Services.AddScoped<ICarStoreService, CarStoreService>();
 
 var app = builder.Build();
 

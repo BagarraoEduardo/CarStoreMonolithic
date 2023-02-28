@@ -1,8 +1,21 @@
-﻿@{
+﻿@model IEnumerable<CarStore.Models.Car>
+
+@{
     ViewData["Title"] = "Home Page";
 }
-@*
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>*@
+
+<div>
+    <h1>Chose your dream car!</h1>
+</div>
+
+@foreach(var car in Model)
+{
+    <div>
+        <h3>@car.Brand @car.Model</h3>
+        <p><img src="@car.ImageUrl" alt="Picture Unavailable"></p>
+        <h3>@car.Price</h3>
+        <h4>@car.Mileage</h4>
+        <h4>€@car.Price.ToString()</h4>
+        <hr>
+    </div>
+}

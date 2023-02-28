@@ -1,16 +1,25 @@
-﻿using CarStore.Models;
+﻿using CarStore.Business.Interface;
+using CarStore.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Diagnostics;
 
 namespace CarStore.Controllers
 {
-    public class LandingPageController : Controller
+    public class HomeController : Controller
     {
-        public LandingPageController(ILogger<LandingPageController> logger){ }
+        private readonly ICarStoreService _service;
+
+        public HomeController(ICarStoreService service)
+        {
+            _service = service;
+        }
 
         public IActionResult Index()
         {
-            return View();
+            var cars = _service.GetAllCars();
+
+            return View(cars);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
