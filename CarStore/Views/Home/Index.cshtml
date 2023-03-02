@@ -1,21 +1,26 @@
-﻿@model IEnumerable<CarStore.Models.Car>
-
-@{
-    ViewData["Title"] = "Home Page";
-}
-
+﻿@model CarListViewModel
 <div>
-    <h1>Chose your dream car!</h1>
+    <h1>@ViewData["Heading"]</h1>
+    <hr />
+    <h2>@ViewBag.CountText @ViewBag.Count</h2>
+    <hr />
+    <h2>@Model.CurrentCarType</h2>  
+    <hr />
 </div>
 
-@foreach(var car in Model)
-{
-    <div>
-        <h3>@car.Brand @car.Model</h3>
-        <p><img src="@car.ImageUrl" alt="Picture Unavailable"></p>
-        <h3>@car.Price</h3>
-        <h4>@car.Mileage</h4>
-        <h4>€@car.Price.ToString()</h4>
-        <hr>
+
+
+<div class="container">
+    <div class="row">
+        @foreach(var car in Model.Cars)
+        {
+            <div class="col-sm-4 col-md-4 col-lg-4">
+                <h3>@car.Brand @car.Model</h3>
+                <p><img src="@car.ImageUrl" alt="Picture Unavailable" class="img-fluid"></p>
+                <h3 >€@car.Price.ToString()</h3>
+                <h4>@car.Mileage km</h4>
+                <h4>@car.Year</h4>
+            </div>
+        }
     </div>
-}
+</div>

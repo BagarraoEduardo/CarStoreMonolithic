@@ -1,5 +1,6 @@
 ﻿using CarStore.Business.Interface;
 using CarStore.Models;
+using CarStore.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Diagnostics;
@@ -17,15 +18,22 @@ namespace CarStore.Controllers
 
         public IActionResult Index()
         {
+            ViewData["Title"] = "CarStore";
+            ViewData["Heading"] = "Choose your dream car!";
+
             var cars = _service.GetAllCars();
+            var carsCount = cars.Count();
 
-            return View(cars);
-        }
+            ViewBag.CountText = "Available cars: ";
+            ViewBag.Count = carsCount;
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var carListViewModel = new CarListViewModel() 
+            {
+                Cars = cars,
+                CurrentCarType = "current Car Type"
+            };
+
+            return View(carListViewModel);
         }
     }
 }
