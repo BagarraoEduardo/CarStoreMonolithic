@@ -14,13 +14,7 @@
     <div class="row">
         @foreach(var car in Model.Cars)
         {
-            <div class="col-sm-4 col-md-4 col-lg-4">
-                <h3>@car.Brand @car.Model</h3>
-                <p><img src="@car.ImageUrl" alt="Picture Unavailable" class="img-fluid"></p>
-                <h3 >€@car.Price.ToString()</h3>
-                <h4>@car.Mileage km</h4>
-                <h4>@car.Year</h4>
-            </div>
+            <partial name="_CarSummary" for="@car" />
         }
     </div>
 </div>
