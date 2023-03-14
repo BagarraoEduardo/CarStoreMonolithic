@@ -7,6 +7,11 @@ namespace CarStore.Models
 {
     public partial class Car
     {
+        public Car()
+        {
+            ShoppingCartItem = new HashSet<ShoppingCartItem>();
+        }
+
         public int Id { get; set; }
         public string Model { get; set; }
         public string Description { get; set; }
@@ -20,5 +25,6 @@ namespace CarStore.Models
 
         public virtual CarType CarType { get; set; }
         public virtual FuelType FuelType { get; set; }
+        public virtual ICollection<ShoppingCartItem> ShoppingCartItem { get; set; }
     }
 }

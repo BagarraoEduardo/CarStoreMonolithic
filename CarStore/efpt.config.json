@@ -25,6 +25,10 @@
       {
          "Name": "[dbo].[FuelType]",
          "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ShoppingCartItem]",
+         "ObjectType": 0
       }
    ],
    "UiHint": "WIN-de-Eduardo\\SQLEXPRESS.CarStore",

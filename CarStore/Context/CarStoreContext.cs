@@ -22,6 +22,7 @@ namespace CarStore.Context
         public virtual DbSet<Car> Car { get; set; }
         public virtual DbSet<CarType> CarType { get; set; }
         public virtual DbSet<FuelType> FuelType { get; set; }
+        public virtual DbSet<ShoppingCartItem> ShoppingCartItem { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -66,6 +67,22 @@ namespace CarStore.Context
                 entity.Property(e => e.Name)
                     .IsRequired()
                     .HasMaxLength(20);
+            });
+
+            modelBuilder.Entity<ShoppingCartItem>(entity =>
+            {
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.Quantity)
+                    .IsRequired()
+                    .HasMaxLength(10)
+                    .IsFixedLength();
+
+                entity.HasOne(d => d.Car)
+                    .WithMany(p => p.ShoppingCartItem)
+                    .HasForeignKey(d => d.CarId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_ShoppingCartItem_Car");
             });
 
             OnModelCreatingPartial(modelBuilder);
